@@ -1,0 +1,75 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+button.activity.active {
+
+    background-color: var(--warning-transparent-100);
+    border: 1px solid var(--warning-transparent-500);
+
+}
+
+/* add  ⌄ to select input */
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("https://api.iconify.design/feather/chevron-down.svg");
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%, 0 0;
+}
+
+span.activity-icon {
+    font-size: 4rem;
+}
+
+.pages {
+    position: relative;
+    transition: all .3s ease;
+}
+
+
+.page.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform .3s ease, opacity .6s ease;
+    opacity: 0;
+}
+
+.timer-display__time {
+    font-size: clamp(6.5rem, 8vw, 36rem);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    display: block;
+
+}
