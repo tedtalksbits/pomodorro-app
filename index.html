@@ -1,160 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://tedtalksbits.github.io/styles/styles.css"
-        />
-        <link rel="stylesheet" href="static/css/style.css" />
-        <title>Pomodoro🍅</title>
-    </head>
 
-    <body>
-        <div class="pages">
-            <div class="page page-one active" id="activityPage">
-                <div class="wrapper p-lg">
-                    <header class="mb-lg">
+<head>
+    <meta charset="UTF-8" />
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+    <link
+        rel="stylesheet"
+        href="https://tedtalksbits.github.io/styles/styles.css"
+    />
+    <link
+        rel="stylesheet"
+        href="static/css/style.css"
+    />
+    <title>Pomodoro🍅</title>
+</head>
+
+<body>
+    <div class="pages">
+        <div
+            class="page page-one active"
+            id="activityPage"
+        >
+            <div class="wrapper p-lg">
+                <header class="mb-lg flex align-baseline justify-between relative">
+                    <div class="left-header">
                         <h1>Choose Activity</h1>
-                        <span class="text txt-alt"
-                            >Choose an activity to start deep focus mode.</span
-                        >
-                    </header>
-
-                    <main class="activity-grid grid-2-col">
-                        <button
-                            class="activity flex-v align-center gap-sm unstyled-btn txt-black"
-                            data-activity="Work Out"
-                        >
-                            <span class="activity-icon">🏋🏽</span
-                            ><span class="activity-name">Work out</span>
-                        </button>
-
-                        <button
-                            class="activity flex-v align-center gap-sm unstyled-btn txt-black"
-                            data-activity="study"
-                        >
-                            <span class="activity-icon">📚</span
-                            ><span class="activity-name">Study</span>
-                        </button>
-
-                        <button
-                            class="activity flex-v align-center gap-sm unstyled-btn txt-black"
-                            data-activity="play"
-                        >
-                            <span class="activity-icon">🎮</span
-                            ><span class="activity-name">Play</span>
-                        </button>
-
-                        <button
-                            class="activity flex-v align-center gap-sm unstyled-btn txt-black"
-                            data-activity="meditate"
-                        >
-                            <span class="activity-icon">🧘🏽</span
-                            ><span class="activity-name">Meditate</span>
-                        </button>
-
-                        <button
-                            class="activity flex-v align-center gap-sm unstyled-btn txt-black"
-                            data-activity="cook"
-                        >
-                            <span class="activity-icon">🍳</span
-                            ><span class="activity-name">Cook</span>
-                        </button>
-
-                        <button
-                            class="activity flex-v align-center gap-sm unstyled-btn txt-black"
-                            data-activity="clean"
-                        >
-                            <span class="activity-icon">🧹</span
-                            ><span class="activity-name">Clean</span>
-                        </button>
-                    </main>
-
-                    <div class="timer">
-                        <label class="mt-md mb-sm" for="durationDropdown"
-                            >Choose a duration</label
-                        >
-                        <select name="time" id="durationDropdown" class="mb-lg">
-                            <option value="null">
-                                -- Select a duration --
-                            </option>
-                            <option value="1">1 min</option>
-                            <option value="5">5 min</option>
-                            <option value="10">10 min</option>
-                            <option value="15">15 min</option>
-                            <option value="20">20 min</option>
-                            <option value="25">25 min</option>
-                            <option value="30">30 min</option>
-                            <option value="35">35 min</option>
-                            <option value="40">40 min</option>
-                            <option value="45">45 min</option>
-                            <option value="50">50 min</option>
-                            <option value="55">55 min</option>
-                            <option value="60">60 min</option>
-                        </select>
+                        <span class="text txt-alt">Choose an activity to start deep focus
+                            mode.</span>
                     </div>
-
-                    <div class="get-started">
-                        <button
-                            id="startBtn"
-                            class="bg-success-transparent-900 border border-success-transparent-900 txt-white bold txt-md"
+                    <div class="right-header">
+                        <label
+                            class="unstyled-btn"
+                            id="settingsBtn"
+                            data-component="settings-btn"
+                            for="settingsCheckbox"
                         >
-                            Get Started
-                        </button>
+                            <span class="icon">⚙️</span>
+                            <input
+                                type="checkbox"
+                                id="settingsCheckbox"
+                                class="hidden"
+                            />
+                        </label>
+                        <div
+                            id="settings"
+                            class="flex-v gap-sm shadow-lg"
+                        >
+                            <div class="settings__item flex justify-between align-center gap-md">
+                                <div class="item-text">
+                                    <h4 class="font-md">Sound</h4>
+                                    <span class="txt-alt font-xs">Choose whether to turn the
+                                        notification sound on or off.</span>
+                                </div>
+                                <div class="item-action">
+                                    <label
+                                        for="soundCheckbox"
+                                        data-component="switch"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            id="soundCheckbox"
+                                            class="switch"
+                                        />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="settings__item flex justify-between align-center gap-md">
+                                <div class="item-text">
+                                    <h4 class="font-md">History</h4>
+                                    <span class="txt-alt font-xs">
+                                        You can view your history here.
+                                    </span>
+                                </div>
+                                <div class="item-action">
+                                    <a
+                                        class="link font-xs"
+                                        href="history.html"
+                                    >View History</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </header>
+
+                <main class="activity-grid grid-2-col">
+                    <button
+                        class="activity flex-v align-center gap-sm unstyled-btn txt-black"
+                        data-activity="Work Out"
+                    >
+                        <span class="activity-icon">🏋🏽</span><span class="activity-name">Work out</span>
+                    </button>
+
+                    <button
+                        class="activity flex-v align-center gap-sm unstyled-btn txt-black"
+                        data-activity="study"
+                    >
+                        <span class="activity-icon">📚</span><span class="activity-name">Study</span>
+                    </button>
+
+                    <button
+                        class="activity flex-v align-center gap-sm unstyled-btn txt-black"
+                        data-activity="play"
+                    >
+                        <span class="activity-icon">🎮</span><span class="activity-name">Play</span>
+                    </button>
+
+                    <button
+                        class="activity flex-v align-center gap-sm unstyled-btn txt-black"
+                        data-activity="meditate"
+                    >
+                        <span class="activity-icon">🧘🏽</span><span class="activity-name">Meditate</span>
+                    </button>
+
+                    <button
+                        class="activity flex-v align-center gap-sm unstyled-btn txt-black"
+                        data-activity="cook"
+                    >
+                        <span class="activity-icon">🍳</span><span class="activity-name">Cook</span>
+                    </button>
+
+                    <button
+                        class="activity flex-v align-center gap-sm unstyled-btn txt-black"
+                        data-activity="clean"
+                    >
+                        <span class="activity-icon">🧹</span><span class="activity-name">Clean</span>
+                    </button>
+                </main>
+
+                <div class="timer">
+                    <label
+                        class="mt-md mb-sm"
+                        for="durationDropdown"
+                    >Choose a duration</label>
+                    <select
+                        name="time"
+                        id="durationDropdown"
+                        class="mb-lg"
+                    >
+                        <option value="null">
+                            -- Select a duration --
+                        </option>
+                        <option value="1">1 min</option>
+                        <option value="5">5 min</option>
+                        <option value="10">10 min</option>
+                        <option value="15">15 min</option>
+                        <option value="20">20 min</option>
+                        <option value="25">25 min</option>
+                        <option value="30">30 min</option>
+                        <option value="35">35 min</option>
+                        <option value="40">40 min</option>
+                        <option value="45">45 min</option>
+                        <option value="50">50 min</option>
+                        <option value="55">55 min</option>
+                        <option value="60">60 min</option>
+                    </select>
+                </div>
+
+                <div class="get-started">
+                    <button
+                        id="startBtn"
+                        class="bg-success-transparent-900 border border-success-transparent-900 txt-white bold txt-md"
+                    >
+                        Get Started
+                    </button>
                 </div>
             </div>
-            <div class="page page-two" id="timerPage">
-                <div class="wrapper p-lg">
-                    <div class="timer-display">
-                        <span class="timer-display__time txt-center" id="timer"
-                            >00:00</span
-                        >
-                        <span
-                            class="timer-display__activity"
-                            id="selectedActivity"
-                            >Activity</span
-                        >
+        </div>
+        <div
+            class="page page-two"
+            id="timerPage"
+        >
+            <div class="wrapper p-lg">
+                <div class="timer-display">
+                    <span
+                        class="timer-display__time txt-center"
+                        id="timer"
+                    >00:00</span>
+                    <span
+                        class="timer-display__activity"
+                        id="selectedActivity"
+                    >Activity</span>
 
-                        <div class="timer-display__controls flex gap-md">
-                            <button
-                                data-component="timer-control"
-                                class="timer-display__controls--start"
-                                id="resumeBtn"
-                            >
-                                <span
-                                    class="timer-display__controls--start-icon"
-                                    >▶️</span
+                    <div class="timer-display__controls flex gap-md">
+                        <button
+                            data-component="timer-control"
+                            class="timer-display__controls--start"
+                            id="resumeBtn"
+                        >
+                            <span class="timer-display__controls--start-icon">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    class="white"
                                 >
-                            </button>
-                            <button
-                                data-component="timer-control"
-                                class="timer-display__controls--pause"
-                                id="pauseBtn"
-                            >
-                                <span
-                                    class="timer-display__controls--pause-icon"
-                                    >⏸</span
+                                    <path d="M8 5v14l11-7z" />
+                                    <path
+                                        d="M0 0h24v24H0z"
+                                        fill="none"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
+                        <button
+                            data-component="timer-control"
+                            class="timer-display__controls--pause"
+                            id="pauseBtn"
+                        >
+                            <span class="timer-display__controls--pause-icon">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    class="white"
                                 >
-                            </button>
-                            <button
-                                data-component="timer-control"
-                                class="timer-display__controls--stop"
-                                id="stopBtn"
-                            >
-                                <span class="timer-display__controls--stop-icon"
-                                    >⏹</span
+                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                                    <path
+                                        d="M0 0h24v24H0z"
+                                        fill="none"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
+                        <button
+                            data-component="timer-control"
+                            class="timer-display__controls--stop"
+                            id="stopBtn"
+                        >
+                            <span class="timer-display__controls--stop-icon">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    class="white"
                                 >
-                            </button>
-                        </div>
+                                    <path d="M6 6h12v12H6z" />
+                                    <path
+                                        d="M0 0h24v24H0z"
+                                        fill="none"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="static/js/app.js" type="module"></script>
-    </body>
+    <script
+        src="static/js/app.js"
+        type="module"
+    ></script>
+</body>
+
 </html>

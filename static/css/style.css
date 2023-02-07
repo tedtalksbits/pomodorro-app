@@ -39,6 +39,15 @@ select {
     background-position: right 0.7em top 50%, 0 0;
 }
 
+input[type="checkbox"]:checked::after {
+    content: "";
+
+}
+
+input[type="checkbox"] {
+    appearance: auto;
+}
+
 span.activity-icon {
     font-size: 4rem;
 }
@@ -72,4 +81,73 @@ span.activity-icon {
     text-align: center;
     display: block;
 
+}
+
+
+/* settings button */
+label[data-component="settings-button"] {
+    position: relative;
+}
+
+input#settingsCheckbox {
+    display: none;
+}
+
+body:has(input#settingsCheckbox:checked) #settings {
+
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+#settings {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    right: 0;
+    border-radius: var(--rounded);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease;
+    border-radius: var(--border-radius-md);
+    padding: .5rem;
+    overflow: hidden;
+    width: 100%;
+    min-height: 200px;
+
+}
+
+.settings__item {
+    background: var(--grey-50);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadein {
+    animation: fadein 1s;
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.fadeout {
+    animation: fadeout 1s;
 }

@@ -1,3 +1,4 @@
+import { saveHistory } from './history.js';
 import { pauseTimer, resumeTimer, startTimer, stopTimer } from './timer.js';
 
 const session = {
@@ -5,6 +6,21 @@ const session = {
     duration: 0,
     isControlsEnabled: false,
     timerState: '',
+    date: '',
+
+    stopSession: function () {
+        this.isControlsEnabled = false;
+        this.timerState = 'stopped';
+    },
+    completeSession: function () {
+        this.isControlsEnabled = false;
+        this.timerState = 'completed';
+    },
+};
+
+const PAGES = {
+    ACTIVITY: 'activityPage',
+    TIMER: 'timerPage',
 };
 
 // set up the activity buttons - set activity
@@ -48,47 +64,31 @@ startBtn.addEventListener('click', (event) => {
     session.duration = getDuration();
     session.isControlsEnabled = true;
     session.timerState = 'started';
+    session.date = new Date().toLocaleString();
     enableTimerControls();
 
     // start the timer
     const timerDisplay = document.querySelector('#timer');
 
     function onComplete() {
-        // play a sound
         const audio = new Audio('/static/sounds/notification.wav');
-
         audio.play();
-
         stopTimer();
-        session.activity = '';
-        session.duration = 0;
-        session.isControlsEnabled = false;
-        session.timerState = 'stopped';
-
-        disableTimerControls();
-
-        timerDisplay.textContent = '00:00';
-
-        startBtn.style.display = 'block';
-        pauseBtn.style.display = 'block';
-        resumeBtn.style.display = 'none';
-
-        const timerPage = document.querySelector('#timerPage');
-
-        const activityPage = document.querySelector('#activityPage');
-        timerPage.classList.remove('active');
-        activityPage.classList.add('active');
+        session.completeSession();
+        saveHistory({
+            activity: session.activity,
+            duration: session.duration,
+            timerState: session.timerState,
+            date: session.date,
+        });
+        resetUI();
     }
+
     startTimer(session.duration * 60, timerDisplay, onComplete);
 
-    // hide the start button
     startBtn.style.display = 'none';
 
-    const timerPage = document.querySelector('#timerPage');
-    const activityPage = document.querySelector('#activityPage');
-
-    timerPage.classList.add('active');
-    activityPage.classList.remove('active');
+    changePage(PAGES.TIMER);
 });
 
 // set up the pause button
@@ -104,25 +104,15 @@ pauseBtn.addEventListener('click', (event) => {
 const stopBtn = document.querySelector('#stopBtn');
 stopBtn.addEventListener('click', (event) => {
     stopTimer();
-
-    session.activity = '';
-    session.duration = 0;
-    session.isControlsEnabled = false;
-    session.timerState = 'stopped';
-
-    disableTimerControls();
-
-    const timerDisplay = document.querySelector('#timer');
-    timerDisplay.textContent = '00:00';
-
-    startBtn.style.display = 'block';
-    pauseBtn.style.display = 'block';
-    resumeBtn.style.display = 'none';
-
-    const timerPage = document.querySelector('#timerPage');
-    const activityPage = document.querySelector('#activityPage');
-    timerPage.classList.remove('active');
-    activityPage.classList.add('active');
+    session.stopSession();
+    saveHistory({
+        activity: session.activity,
+        duration: session.duration,
+        timerState: session.timerState,
+        date: session.date,
+    });
+    changePage(PAGES.ACTIVITY);
+    resetUI();
 });
 
 // set up the resume button
@@ -160,4 +150,34 @@ function disableTimerControls() {
         .forEach((button) => {
             button.disabled = true;
         });
+
+    const timerDisplay = document.querySelector('#timer');
+    timerDisplay.textContent = '00:00';
+
+    const startBtn = document.querySelector('#startBtn');
+    startBtn.style.display = 'block';
+
+    const pauseBtn = document.querySelector('#pauseBtn');
+    pauseBtn.style.display = 'block';
+
+    const resumeBtn = document.querySelector('#resumeBtn');
+    resumeBtn.style.display = 'none';
+}
+
+function resetUI() {
+    disableTimerControls();
+    changePage(PAGES.ACTIVITY);
+
+    activityBtns.forEach((activity) => {
+        activity.classList.remove('active');
+    });
+}
+
+function changePage(page) {
+    console.log(page);
+    const pages = document.querySelectorAll('.page');
+    pages.forEach((page) => {
+        page.classList.remove('active');
+    });
+    document.querySelector(`#${page}`).classList.add('active');
 }
